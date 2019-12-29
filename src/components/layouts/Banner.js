@@ -10,7 +10,6 @@ function Banner() {
         borderBottom:theme.name==='light'?'1px solid #eaeaea':'1px solid #222',
         background: ` url(${bannerBg}) center / cover no-repeat`
     }
-    console.log(bannerBg)
     return (
         <div className={bannerCssClass} style={customStyle}>
             <div className="container text-center">

@@ -12,9 +12,10 @@ function NavContextProvider(props) {
     ])
 
     useEffect(()=>{
+        console.log()
         setNavs((prevNavs)=>{
             return prevNavs.map(nav => { 
-                nav.active = (nav.route===window.location.pathname)?true:false 
+                nav.active = (nav.route === window.location.hash.slice(1))?true:false 
                 return nav
             })
         })
