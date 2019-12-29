@@ -6,7 +6,7 @@ function NavMenu(props) {
     const {menu,active,clicked} = props
     return (
         <li className={active?"nav-item active":'nav-item'}>
-            <Link to={menu.route} className="nav-link" onClick={clicked}>{menu.name}</Link>
+            <Link to={menu.route} className="nav-link lead" onClick={clicked}>{menu.name}</Link>
         </li>
     )
 }

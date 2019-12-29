@@ -1,28 +1,27 @@
 import React,{useState,useContext,useEffect} from 'react'
 import PageTitle from '../layouts/PageTitle'
 import {BookContext} from '../../contexts/BookContext'
-import {NavContext} from '../../contexts/NavContext'
-import {ThemeContext} from '../../contexts/ThemeContext'
 import validate from "../../helpers/validation";
-import {ADD_BOOK} from '../../reducers/bookReducer'
-import uuid from 'uuid'
-import {Redirect} from 'react-router-dom'
+import {EDIT_BOOK} from '../../reducers/bookReducer'
 
-function AddBook(props) {
-    const {dispatch} = useContext(BookContext)
-    const {setActiveNavs} = useContext(NavContext)
-    const {theme} = useContext(ThemeContext)
 
+function EditBook(props) {
+    const {books,dispatch} = useContext(BookContext)
     const [formSubmit,setFormSubmit] = useState(false)
-    const [redirect, setRedirect] = useState(false)
     const [book,setBook] = useState({
-        id:uuid(),
+        id:'',
         name:'',
         description:'',
         author:'',
         genre:'',
         price:''
     })
+    useEffect(()=>{
+        const [incomingBook] = books.filter(book => book.id === props.match.params.id)
+        setBook(incomingBook)
+    },[books,props])
+
+
     const [errors,setErrors] = useState({
         name: {},
         description: {},
@@ -45,14 +44,13 @@ function AddBook(props) {
             name:validate('Book Name', name,'required|min:2|max:150|string'),
             description:validate('Description',description,'min:5|max:300|string'),
             author:validate('Author Name',author,'min:2|max:150|string|required'),
-            genre:validate('Genre',genre,'min:2|max:100|string|required'),
+            genre:validate('Genre',genre,'min:5|max:100|string|required'),
             price:validate('price',price,'min:1|max:10|number')
             
         }
         setErrors({ ...validateFields})
         setFormSubmit(true)
     }
-
 
     useEffect(()=>{
         if(formSubmit){
@@ -63,42 +61,29 @@ function AddBook(props) {
                 }
                 
             }
-            dispatch({type:ADD_BOOK,payload:book})
+            dispatch({type:EDIT_BOOK,payload:book})
             setFormSubmit(false)
-            setActiveNavs()
-            setRedirect(true)
-            //props.history('/')
-            
+            props.history.push("/")
         }
         
-    }, [formSubmit, dispatch, book, errors,props,setActiveNavs])
-    
-
-    const cardCssClass = "card "+theme.text+" "+theme.containerBg
-    const nameCssClass = theme.formControl+ ((errors.name.result === false) ? " is-invalid" : "")
-    const descriptionCssClass = theme.formControl+((errors.description.result === false) ? " is-invalid" : "")
-    const authorCssClass = theme.formControl+((errors.author.result === false) ? " is-invalid" : "")
-    const genreCssClass = theme.formControl+((errors.genre.result === false) ? " is-invalid" : "")
-    const priceCssClass = theme.formControl+((errors.price.result === false) ? " is-invalid" : "")
+    }, [formSubmit, dispatch, book, errors,props])
+   
     return (
         <React.Fragment>
-
-            {redirect?<Redirect to="/" />:null}
-
-            <PageTitle  title={'Add Book'}/>
-            <div className={cardCssClass}>
+            <PageTitle  title={'Edit Book'}/>
+            <div className="card">
                 <div className="card-header">
                     <h4 className="font-weight-light">Fill up the form with proper informations</h4>
                 </div>
                 <div className="card-body">
-                    <p className="text-info">All required fields have a red star in their label. Without those data, form will not be submitted for further processing. Keep in mind, this form only supports English and bengali alphabets</p>
+                    <p className="text-info">All required fields have a red star in their label. Without those data, form will not be submitted for further processing. This form only supports English and bengali alphabets</p>
                     <form onSubmit={handleFormSubmit}>
                         <div className="form-group">
                             <label htmlFor="name">Book Name: <span className="text-danger font-italic">* {(errors.name.result===false)?errors.name.message:''}</span> </label>
                             <input 
                             type="text" 
                             name="name" 
-                            className={nameCssClass}
+                            className={(errors.name.result===false)?"form-control is-invalid":"form-control"}
                             value={book.name}
                             onChange={handleChange}
                             placeholder="Enter Book Name"
@@ -109,7 +94,7 @@ function AddBook(props) {
                             <label htmlFor="description">Description: <span className="text-danger font-italic"> {(errors.description.result === false) ? errors.description.message : ''}</span></label>
                             <textarea 
                             name="description" 
-                            className={descriptionCssClass}
+                            className={(errors.description.result === false) ? "form-control is-invalid" : "form-control"}
                             value={book.description}
                             onChange={handleChange}
                             placeholder="Enter proper description within 50 words"
@@ -120,7 +105,7 @@ function AddBook(props) {
                             <input
                                 type="text"
                                 name="author"
-                                className={authorCssClass}
+                                className={(errors.author.result === false) ? "form-control is-invalid" : "form-control"}
                                 value={book.author}
                                 onChange={handleChange}
                                 placeholder="Enter Author Name"
@@ -131,7 +116,7 @@ function AddBook(props) {
                             <label htmlFor="genre">Genre: <span className="text-danger font-italic">* {(errors.genre.result === false) ? errors.genre.message : ''}</span> </label>
                             <select
                                 name="genre"
-                                className={genreCssClass}
+                                className={(errors.genre.result === false) ? "form-control is-invalid" : "form-control"}
                                 value={book.genre}
                                 onChange={handleChange}
                                 placeholder="Which genre?"
@@ -147,13 +132,13 @@ function AddBook(props) {
                             <input
                                 type="text"
                                 name="price"
-                                className={priceCssClass}
+                                className={(errors.price.result === false) ? "form-control is-invalid" : "form-control"}
                                 value={book.price}
                                 onChange={handleChange}
                                 placeholder="Enter price if possible"
                             />
                         </div>
-                        <div className="form-group"><button className="btn btn-primary">Add Book</button></div>
+                        <div className="form-group"><button className="btn btn-primary">Update Book</button></div>
                     </form>
                 </div>
             </div>
@@ -161,4 +146,4 @@ function AddBook(props) {
     )
 }
 
-export default AddBook
+export default EditBook
