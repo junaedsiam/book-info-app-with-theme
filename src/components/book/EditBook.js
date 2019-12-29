@@ -1,13 +1,18 @@
 import React,{useState,useContext,useEffect} from 'react'
 import PageTitle from '../layouts/PageTitle'
 import {BookContext} from '../../contexts/BookContext'
+import { NavContext } from '../../contexts/NavContext'
+import { ThemeContext } from '../../contexts/ThemeContext'
 import validate from "../../helpers/validation";
 import {EDIT_BOOK} from '../../reducers/bookReducer'
-
+import { Redirect } from 'react-router-dom'
 
 function EditBook(props) {
     const {books,dispatch} = useContext(BookContext)
+    const { setActiveNavs } = useContext(NavContext)
+    const { theme } = useContext(ThemeContext)
     const [formSubmit,setFormSubmit] = useState(false)
+    const [redirect, setRedirect] = useState(false)
     const [book,setBook] = useState({
         id:'',
         name:'',
@@ -50,6 +55,8 @@ function EditBook(props) {
         }
         setErrors({ ...validateFields})
         setFormSubmit(true)
+        setActiveNavs()
+        setRedirect(true)
     }
 
     useEffect(()=>{
@@ -68,10 +75,17 @@ function EditBook(props) {
         
     }, [formSubmit, dispatch, book, errors,props])
    
+    const cardCssClass = "card " + theme.text + " " + theme.containerBg
+    const nameCssClass = theme.formControl + ((errors.name.result === false) ? " is-invalid" : "")
+    const descriptionCssClass = theme.formControl + ((errors.description.result === false) ? " is-invalid" : "")
+    const authorCssClass = theme.formControl + ((errors.author.result === false) ? " is-invalid" : "")
+    const genreCssClass = theme.formControl + ((errors.genre.result === false) ? " is-invalid" : "")
+    const priceCssClass = theme.formControl + ((errors.price.result === false) ? " is-invalid" : "")
     return (
         <React.Fragment>
+            {redirect ? <Redirect to="/" /> : null}
             <PageTitle  title={'Edit Book'}/>
-            <div className="card">
+            <div className={cardCssClass}>
                 <div className="card-header">
                     <h4 className="font-weight-light">Fill up the form with proper informations</h4>
                 </div>
@@ -83,7 +97,7 @@ function EditBook(props) {
                             <input 
                             type="text" 
                             name="name" 
-                            className={(errors.name.result===false)?"form-control is-invalid":"form-control"}
+                            className={nameCssClass}
                             value={book.name}
                             onChange={handleChange}
                             placeholder="Enter Book Name"
@@ -94,7 +108,7 @@ function EditBook(props) {
                             <label htmlFor="description">Description: <span className="text-danger font-italic"> {(errors.description.result === false) ? errors.description.message : ''}</span></label>
                             <textarea 
                             name="description" 
-                            className={(errors.description.result === false) ? "form-control is-invalid" : "form-control"}
+                            className={descriptionCssClass}
                             value={book.description}
                             onChange={handleChange}
                             placeholder="Enter proper description within 50 words"
@@ -105,7 +119,7 @@ function EditBook(props) {
                             <input
                                 type="text"
                                 name="author"
-                                className={(errors.author.result === false) ? "form-control is-invalid" : "form-control"}
+                                className={authorCssClass}
                                 value={book.author}
                                 onChange={handleChange}
                                 placeholder="Enter Author Name"
@@ -116,7 +130,7 @@ function EditBook(props) {
                             <label htmlFor="genre">Genre: <span className="text-danger font-italic">* {(errors.genre.result === false) ? errors.genre.message : ''}</span> </label>
                             <select
                                 name="genre"
-                                className={(errors.genre.result === false) ? "form-control is-invalid" : "form-control"}
+                                className={genreCssClass}
                                 value={book.genre}
                                 onChange={handleChange}
                                 placeholder="Which genre?"
@@ -132,7 +146,7 @@ function EditBook(props) {
                             <input
                                 type="text"
                                 name="price"
-                                className={(errors.price.result === false) ? "form-control is-invalid" : "form-control"}
+                                className={priceCssClass}
                                 value={book.price}
                                 onChange={handleChange}
                                 placeholder="Enter price if possible"
