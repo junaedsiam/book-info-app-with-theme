@@ -9,7 +9,7 @@ import Footer from './components/layouts/Footer'
 import Banner from './components/layouts/Banner'
 import './App.css'
 import BookContextProvider from './contexts/BookContext'
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import ThemeContextProvider from './contexts/ThemeContext'
 import NavContextProvider from './contexts/NavContext'
 

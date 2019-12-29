@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import logo from '../../image/logo.png'
+import logo from './../../image/logo.png'
 import NavMenu from './NavMenu'
 import { NavContext } from '../../contexts/NavContext'
 import { ThemeContext } from '../../contexts/ThemeContext'

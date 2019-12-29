@@ -1,7 +1,7 @@
 import React,{useContext} from 'react'
-import logo from '../../image/logo.png'
+import logo from './../../image/logo.png'
 import { ThemeContext } from "../../contexts/ThemeContext";
-import bannerBg from '../../image/banner-bg.jpg'
+import bannerBg from './../../image/banner-bg.jpg'
 
 function Banner() {
     const {theme,switchTheme} = useContext(ThemeContext)
