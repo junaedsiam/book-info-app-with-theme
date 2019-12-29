@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "junaedsiam.github.io/book-info-app-with-theme/static/css/main.3be48599.chunk.css",
+    "main.js": "junaedsiam.github.io/book-info-app-with-theme/static/js/main.bdbc912b.chunk.js",
+    "main.js.map": "junaedsiam.github.io/book-info-app-with-theme/static/js/main.bdbc912b.chunk.js.map",
+    "runtime-main.js": "junaedsiam.github.io/book-info-app-with-theme/static/js/runtime-main.9e9c9545.js",
+    "runtime-main.js.map": "junaedsiam.github.io/book-info-app-with-theme/static/js/runtime-main.9e9c9545.js.map",
+    "static/js/2.9bd8da0f.chunk.js": "junaedsiam.github.io/book-info-app-with-theme/static/js/2.9bd8da0f.chunk.js",
+    "static/js/2.9bd8da0f.chunk.js.map": "junaedsiam.github.io/book-info-app-with-theme/static/js/2.9bd8da0f.chunk.js.map",
+    "index.html": "junaedsiam.github.io/book-info-app-with-theme/index.html",
+    "precache-manifest.d7c327dac57448c611629311e1739c66.js": "junaedsiam.github.io/book-info-app-with-theme/precache-manifest.d7c327dac57448c611629311e1739c66.js",
+    "service-worker.js": "junaedsiam.github.io/book-info-app-with-theme/service-worker.js",
+    "static/css/main.3be48599.chunk.css.map": "junaedsiam.github.io/book-info-app-with-theme/static/css/main.3be48599.chunk.css.map",
+    "static/js/2.9bd8da0f.chunk.js.LICENSE": "junaedsiam.github.io/book-info-app-with-theme/static/js/2.9bd8da0f.chunk.js.LICENSE",
+    "static/media/banner-bg.jpg": "junaedsiam.github.io/book-info-app-with-theme/static/media/banner-bg.abb1175c.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.9e9c9545.js",
+    "static/js/2.9bd8da0f.chunk.js",
+    "static/css/main.3be48599.chunk.css",
+    "static/js/main.bdbc912b.chunk.js"
+  ]
+}
