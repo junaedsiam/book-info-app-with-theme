@@ -1,4 +1,6 @@
 # Book Info App with React Hook & Context 
+[!Book Info App Image](book-app-snap.png)
+
 This Book Info App seems very easy at first glance. But some very important and key features of REACT are implemented in this application. All the books information will be saved into user browser's local-storage. There is no database / backend in this application.
 
 ## React Framework
